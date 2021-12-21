@@ -3,9 +3,9 @@ apply plugin: 'signing'
 
 group = "io.github.yvescheung"                               // Maven Group ID for the artifact
 version = libraryVersion
-final String developerId = 'YvesCheung'
-final String developerName = 'YvesCheung'
-final String developerEmail = '975135274@qq.com'
+final String developerId = 'maoqis'
+final String developerName = 'maoqis'
+final String developerEmail = 'maoqis@163.com'
 final String licenseName = 'The Apache License, Version 2.0'
 final String licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0'
 
@@ -53,8 +53,8 @@ afterEvaluate {
                     // You only need this if you want to publish snapshots, otherwise just set the URL
                     // to the release repo directly
                     url = version.endsWith('SNAPSHOT')
-                            ? "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                            : "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+                            ? "http://localhost:8081/repository/maven-snapshots/"
+                            : "http://localhost:8081/repository/maven-releases/"
 
                     // The username and password we've fetched earlier
                     credentials {

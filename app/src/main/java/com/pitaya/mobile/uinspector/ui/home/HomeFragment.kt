@@ -11,26 +11,32 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.pitaya.mobile.uinspector.demo.R
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.item_recycler_view.view.*
+import com.pitaya.mobile.uinspector.demo.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by viewModels()
+
+    private var _binding: FragmentHomeBinding? = null
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val data = mutableListOf<HomeItem>()
         val adapter = HomeAdapter(data)
-        home_recycler_view.adapter = adapter
+
+        binding.homeRecyclerView.adapter = adapter
         homeViewModel.data.observe(viewLifecycleOwner, Observer {
             data.clear()
             data.addAll(it)
@@ -58,6 +64,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private class HomeVH(itemView: View, val textView: TextView = itemView.recycler_text) :
+    private class HomeVH(itemView: View, val textView: TextView = itemView.findViewById(R.id.recycler_text)) :
         RecyclerView.ViewHolder(itemView)
 }

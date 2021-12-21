@@ -20,7 +20,7 @@ import com.pitaya.mobile.uinspector.hierarchy.LayerFactoryPlugin
 import com.pitaya.mobile.uinspector.util.dpToPx
 import com.pitaya.mobile.uinspector.util.log
 import com.github.yvescheung.whisper.IntDef
-import kotlinx.android.synthetic.main.uinspector_popup_panel_container.view.*
+import com.google.android.material.tabs.TabLayout
 
 /**
  * @author YvesCheung
@@ -71,9 +71,10 @@ internal class UInspectorPopupPanelContainerImpl(val parent: ViewGroup) :
         val inspectorMask: View,
         children: List<UInspectorChildPanel>
     ) {
-        private val popupPanel = inspectorMask.popup_panel
-        private val viewPager = popupPanel.popup_panel_viewpager
-        private val tabLayout = popupPanel.popup_panel_tab
+
+        private val popupPanel = inspectorMask.findViewById<LinearLayout>(R.id.popup_panel)
+        private val viewPager = popupPanel.findViewById<ViewPager>(R.id.popup_panel_viewpager)
+        private val tabLayout = popupPanel.findViewById<TabLayout>(R.id.popup_panel_tab)
 
         private val adapter = PanelAdapter(children)
 
@@ -109,7 +110,7 @@ internal class UInspectorPopupPanelContainerImpl(val parent: ViewGroup) :
                 }
             })
             viewPager.setCurrentItem(lastSelectedPanelPosition, false)
-            tabLayout.setupWithViewPager(viewPager)
+            tabLayout?.setupWithViewPager(viewPager)
         }
     }
 

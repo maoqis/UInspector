@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,7 +23,6 @@ import com.pitaya.mobile.uinspector.optional.compose.hirarchy.ComposeView
 import com.pitaya.mobile.uinspector.state.UInspectorTargetViews
 import com.pitaya.mobile.uinspector.ui.panel.popup.UInspectorChildPanel
 import com.pitaya.mobile.uinspector.util.dpStr
-import kotlinx.android.synthetic.main.uinspector_panel_compose_properties.view.*
 import kotlin.math.roundToInt
 
 /**
@@ -42,9 +42,10 @@ class UInspectorComposePropertiesPanel(override val priority: Int) : UInspectorC
         val root = LayoutInflater.from(context)
             .inflate(R.layout.uinspector_panel_compose_properties, null)
         if (target is ComposeView) {
-            root.compose_props_list.adapter = ComposePropsAdapter(target)
 
-            root.uinspector_compose_padding.let {
+            root.findViewById<RecyclerView>(R.id.compose_props_list).adapter = ComposePropsAdapter(target)
+
+            root.findViewById<ConstraintLayout>(R.id.uinspector_compose_padding).let {
                 it.setBackgroundColor(Color.parseColor("#ACD6FF"))
                 it.findViewById<TextView>(R.id.view_prop).text = "padding"
 
@@ -58,7 +59,7 @@ class UInspectorComposePropertiesPanel(override val priority: Int) : UInspectorC
                     "${target.padding.right.roundToInt()}dp"
             }
 
-            root.uinspector_compose_bound.let {
+            root.findViewById<ConstraintLayout>(R.id.uinspector_compose_bound).let {
                 it.setBackgroundColor(Color.parseColor("#FFFFCE"))
                 it.findViewById<TextView>(R.id.view_top).text =
                     target.width.dpStr + "\nX\n" + target.height.dpStr
